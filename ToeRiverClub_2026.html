@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toe River Club — Stream Committee 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:  #FFFFFF;
+  --cream:  #F5EDDA;
+  --amber:  #C07020;
+  --forest: #0B2228;
+  --mid:    #5A5248;
+  --light:  #E8E0CE;
+  --river:  #163840;
+  --teal:   #1E5060;
+  --mist:   rgba(11,34,40,0.09);
+  --spot-red:  #C83018;
+  --spot-halo: #3AACCC;
+  --flank-hi:  #D4903A;
+  --flank-lo:  #7A4418;
+  --belly:     #E8C848;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+body { font-family: 'Poppins', sans-serif; background: var(--white); color: var(--forest); overflow-x: hidden; }
+.slide:not(#s1):not(#s5):not(#s7) { background: linear-gradient(160deg, var(--white) 0%, #FAF5EE 100%); }
+
+.nav { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 7px; z-index: 100; }
+.nav-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(28,53,40,0.15); cursor: pointer; transition: all 0.3s ease; }
+.nav-dot.active { background: var(--amber); transform: scale(1.8); }
+.nav-label { font-family: 'Poppins', sans-serif; font-size: 7px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(28,53,40,0.25); margin-top: 6px; margin-bottom: 2px; }
+
+.slide { width: 100vw; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 10vw; position: relative; overflow: hidden; scroll-snap-align: start; background: var(--white); color: var(--forest); }
+.slide-num { position: absolute; bottom: 32px; right: 10vw; font-family: 'Poppins', sans-serif; font-size: 10px; letter-spacing: 0.16em; color: rgba(28,53,40,0.2); }
+
+.reveal { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+.js-loaded .reveal { opacity: 0; transform: translateY(18px); }
+.reveal.visible { opacity: 1 !important; transform: translateY(0) !important; }
+.rd1 { transition-delay: 0.10s; } .rd2 { transition-delay: 0.20s; } .rd3 { transition-delay: 0.30s; } .rd4 { transition-delay: 0.40s; } .rd5 { transition-delay: 0.50s; }
+
+.eyebrow { font-family: 'Poppins', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.eyebrow::after { content: ''; width: 32px; height: 1px; background: var(--amber); opacity: 0.4; }
+.big-h { font-family: 'Jost', sans-serif; font-size: clamp(32px, 4.5vw, 60px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.08; color: var(--forest); max-width: 820px; margin-bottom: 40px; }
+.big-h em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--amber); }
+.body-text { font-family: 'Poppins', sans-serif; font-size: 15px; color: var(--mid); line-height: 1.85; max-width: 640px; }
+.o-rule { width: 48px; height: 3px; background: var(--amber); margin-bottom: 40px; }
+
+/* HERO */
+#s1 { background: var(--forest); }
+.s1-inner { position: relative; z-index: 2; max-width: 780px; }
+.s1-club { font-family: 'Poppins', sans-serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(244,239,228,0.5); margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }
+.s1-club::before { content: ''; display: block; width: 28px; height: 1px; background: var(--amber); }
+.s1-h { font-family: 'Jost', sans-serif; font-size: clamp(40px, 5.5vw, 76px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.0; color: var(--cream); margin-bottom: 24px; }
+.s1-h em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--amber); }
+.s1-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(15px, 1.7vw, 20px); color: rgba(244,239,228,0.65); line-height: 1.65; max-width: 460px; margin-bottom: 48px; }
+.s1-deadline { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(158,92,30,0.5); background: rgba(158,92,30,0.12); padding: 10px 20px; }
+.s1-deadline-label { font-family: 'Poppins', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); }
+.s1-deadline-date { font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 600; color: var(--cream); letter-spacing: -0.02em; }
+
+
+/* OVERVIEW */
+#s2 { background: var(--white); }
+.s2-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; max-width: 1060px; width: 100%; margin-bottom: 32px; }
+.s2-stat { padding: 36px 32px; background: var(--light); border: 1px solid rgba(28,53,40,0.06); }
+.s2-stat.hero { background: var(--forest); border-color: var(--forest); }
+.s2-stat.accent { background: var(--amber); border-color: var(--amber); }
+.s2-num { font-family: 'Jost', sans-serif; font-size: clamp(36px, 4vw, 56px); font-weight: 600; color: var(--amber); letter-spacing: -0.04em; line-height: 1; margin-bottom: 10px; }
+.s2-stat.hero .s2-num { color: var(--cream); }
+.s2-stat.accent .s2-num { color: var(--cream); }
+.s2-lbl { font-family: 'Poppins', sans-serif; font-size: 12px; color: var(--mid); line-height: 1.6; }
+.s2-stat.hero .s2-lbl { color: rgba(244,239,228,0.75); }
+.s2-stat.accent .s2-lbl { color: rgba(244,239,228,0.9); }
+.s2-committee { max-width: 1060px; width: 100%; padding: 28px 32px; background: var(--cream); border-left: 3px solid var(--amber); }
+.s2-committee-label { font-family: 'Poppins', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; }
+.s2-members { display: flex; flex-wrap: wrap; gap: 8px; }
+.s2-member { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; color: var(--forest); letter-spacing: -0.01em; background: var(--white); border: 1px solid rgba(28,53,40,0.1); padding: 6px 16px; }
+
+/* PHASE 1 */
+#s3 { background: var(--white); }
+.phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 1060px; width: 100%; margin-bottom: 24px; }
+.p-card { padding: 28px 24px; background: var(--light); border: 1px solid rgba(28,53,40,0.06); }
+.p-card.dark { background: var(--forest); border-color: var(--forest); }
+.p-card.amber-card { background: var(--amber); border-color: var(--amber); }
+.p-card-eye { font-family: 'Poppins', sans-serif; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+.p-card.dark .p-card-eye { color: rgba(244,239,228,0.6); }
+.p-card.amber-card .p-card-eye { color: rgba(244,239,228,0.75); }
+.p-card-title { font-family: 'Jost', sans-serif; font-size: 17px; font-weight: 500; color: var(--forest); letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.25; }
+.p-card.dark .p-card-title { color: var(--cream); }
+.p-card.amber-card .p-card-title { color: var(--cream); }
+.p-card-body { font-family: 'Poppins', sans-serif; font-size: 12.5px; color: var(--mid); line-height: 1.75; }
+.p-card.dark .p-card-body { color: rgba(244,239,228,0.72); }
+.p-card.amber-card .p-card-body { color: rgba(244,239,228,0.88); }
+.p-card-cost { font-family: 'Jost', sans-serif; font-size: 22px; font-weight: 600; color: var(--amber); letter-spacing: -0.03em; margin-top: 14px; }
+.p-card.dark .p-card-cost { color: var(--cream); }
+.p-card.amber-card .p-card-cost { color: var(--cream); }
+.p-note { max-width: 1060px; width: 100%; padding: 22px 28px; background: var(--cream); border-left: 3px solid var(--amber); }
+.p-note p { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(14px, 1.6vw, 18px); color: var(--forest); line-height: 1.65; }
+.p-note p em { font-style: normal; font-family: 'Jost', sans-serif; font-weight: 500; color: var(--amber); }
+
+/* PHASE 2 */
+#s4 { background: var(--cream); }
+.s4-rows { display: flex; flex-direction: column; gap: 2px; max-width: 1060px; width: 100%; margin-bottom: 28px; }
+.s4-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 0; align-items: stretch; }
+.s4-num { background: var(--forest); display: flex; align-items: center; justify-content: center; font-family: 'Jost', sans-serif; font-size: 16px; font-weight: 600; color: rgba(244,239,228,0.4); letter-spacing: -0.02em; }
+.s4-task { padding: 18px 22px; background: var(--white); border: 1px solid rgba(28,53,40,0.08); border-left: none; }
+.s4-task-title { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 500; color: var(--forest); letter-spacing: -0.01em; margin-bottom: 4px; }
+.s4-task-body { font-family: 'Poppins', sans-serif; font-size: 12px; color: var(--mid); line-height: 1.65; }
+.s4-meta { background: var(--light); border: 1px solid rgba(28,53,40,0.08); border-left: none; padding: 18px 20px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 4px; min-width: 130px; }
+.s4-meta-cost { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 600; color: var(--amber); letter-spacing: -0.02em; }
+.s4-meta-lead { font-family: 'Poppins', sans-serif; font-size: 9px; color: var(--mid); letter-spacing: 0.04em; text-align: right; }
+.s4-row.featured .s4-num { background: var(--amber); }
+.s4-row.featured .s4-num span { color: rgba(244,239,228,0.9); }
+.s4-row.featured .s4-task { background: var(--forest); border-color: var(--forest); }
+.s4-row.featured .s4-task-title { color: var(--cream); }
+.s4-row.featured .s4-task-body { color: rgba(244,239,228,0.7); }
+.s4-row.featured .s4-meta { background: rgba(28,53,40,0.85); border-color: transparent; }
+.s4-row.featured .s4-meta-cost { color: var(--amber); }
+.s4-row.featured .s4-meta-lead { color: rgba(244,239,228,0.55); }
+
+/* IN-RIVER HABITAT */
+#s5 { background: var(--forest); overflow-y: auto; justify-content: flex-start; padding-top: 72px; padding-bottom: 72px; }
+.s5-h { font-family: 'Jost', sans-serif; font-size: clamp(32px, 4.5vw, 60px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.08; color: var(--cream); max-width: 820px; margin-bottom: 36px; }
+.s5-h em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--amber); }
+.s5-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; max-width: 1060px; width: 100%; margin-bottom: 2px; }
+.s5-card { padding: 26px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(244,239,228,0.1); }
+.s5-card.lit { background: var(--amber); border-color: var(--amber); }
+.s5-icon { font-size: 22px; margin-bottom: 10px; }
+.s5-card-title { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; color: rgba(244,239,228,0.9); letter-spacing: -0.01em; margin-bottom: 8px; }
+.s5-card.lit .s5-card-title { color: var(--cream); }
+.s5-card-body { font-family: 'Poppins', sans-serif; font-size: 11.5px; color: rgba(244,239,228,0.55); line-height: 1.7; }
+.s5-card.lit .s5-card-body { color: rgba(244,239,228,0.85); }
+.s5-warning { max-width: 1060px; width: 100%; margin-top: 2px; padding: 18px 24px; background: rgba(158,92,30,0.15); border-left: 3px solid var(--amber); }
+.s5-warning p { font-family: 'Poppins', sans-serif; font-size: 12px; color: rgba(244,239,228,0.65); line-height: 1.7; }
+.s5-warning strong { color: var(--amber); font-weight: 500; }
+
+/* PHASE 3 / FALL */
+#s6 { background: var(--white); }
+.s6-layout { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; max-width: 1060px; width: 100%; margin-bottom: 32px; }
+.s6-block { padding: 32px 26px; background: var(--light); border: 1px solid rgba(28,53,40,0.06); border-top: 3px solid rgba(28,53,40,0.1); }
+.s6-block.river-top { border-top-color: var(--river); }
+.s6-block-num { font-family: 'Jost', sans-serif; font-size: 40px; font-weight: 600; color: rgba(28,53,40,0.12); letter-spacing: -0.04em; line-height: 1; margin-bottom: 14px; }
+.s6-block-title { font-family: 'Jost', sans-serif; font-size: 16px; font-weight: 500; color: var(--forest); letter-spacing: -0.02em; margin-bottom: 8px; }
+.s6-block-body { font-family: 'Poppins', sans-serif; font-size: 12px; color: var(--mid); line-height: 1.75; }
+.s6-grants { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 1060px; width: 100%; }
+.s6-grant { padding: 28px 30px; background: var(--light); border: 1px solid rgba(28,53,40,0.06); }
+.s6-grant.approved { background: var(--forest); }
+.s6-grant-amount { font-family: 'Jost', sans-serif; font-size: 44px; font-weight: 600; color: var(--amber); letter-spacing: -0.05em; line-height: 1; margin-bottom: 6px; }
+.s6-grant.approved .s6-grant-amount { color: var(--cream); }
+.s6-grant-label { font-family: 'Poppins', sans-serif; font-size: 12px; color: var(--mid); line-height: 1.55; }
+.s6-grant.approved .s6-grant-label { color: rgba(244,239,228,0.65); }
+.s6-grant-status { display: inline-block; margin-top: 10px; font-family: 'Poppins', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 10px; }
+.s6-grant-status.pending { background: rgba(158,92,30,0.12); color: var(--amber); }
+.s6-grant-status.ok { background: rgba(244,239,228,0.15); color: rgba(244,239,228,0.75); }
+
+/* TIMELINE */
+#s7 { background: var(--forest); overflow-y: auto; justify-content: flex-start; padding-top: 72px; padding-bottom: 72px; }
+.tl-wrap { max-width: 920px; width: 100%; }
+.tl-h { font-family: 'Jost', sans-serif; font-size: clamp(30px,4vw,52px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.08; color: var(--cream); margin-bottom: 48px; }
+.tl-h em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--amber); }
+.tl-month { display: grid; grid-template-columns: 110px 1fr; gap: 0; margin-bottom: 2px; }
+.tl-month-label { padding: 0 16px 0 0; display: flex; align-items: flex-start; justify-content: flex-end; padding-top: 16px; }
+.tl-month-name { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(244,239,228,0.3); text-align: right; line-height: 1.2; }
+.tl-month-name span { display: block; font-size: 9px; font-weight: 400; letter-spacing: 0.12em; color: rgba(244,239,228,0.18); margin-top: 3px; }
+.tl-items { display: flex; flex-direction: column; gap: 2px; flex: 1; border-left: 1px solid rgba(244,239,228,0.08); padding-left: 2px; }
+.tl-item { display: grid; grid-template-columns: 28px 1fr auto; gap: 0; cursor: pointer; }
+.tl-check { width: 28px; background: rgba(255,255,255,0.04); border: 1px solid rgba(244,239,228,0.08); border-right: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+.tl-check svg { width: 12px; height: 12px; opacity: 0; transition: opacity 0.2s; }
+.tl-item.done .tl-check { background: rgba(158,92,30,0.2); }
+.tl-item.done .tl-check svg { opacity: 1; }
+.tl-item.deadline .tl-check { background: var(--amber); }
+.tl-item.deadline .tl-check svg { opacity: 1; }
+.tl-body { padding: 13px 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(244,239,228,0.08); border-left: none; border-right: none; }
+.tl-item.deadline .tl-body { background: rgba(158,92,30,0.18); border-color: rgba(158,92,30,0.35); }
+.tl-item:hover .tl-body { background: rgba(255,255,255,0.07); }
+.tl-item-title { font-family: 'Jost', sans-serif; font-size: 13.5px; font-weight: 500; color: rgba(244,239,228,0.88); letter-spacing: -0.01em; line-height: 1.3; }
+.tl-item.done .tl-item-title { text-decoration: line-through; text-decoration-color: rgba(244,239,228,0.25); color: rgba(244,239,228,0.45); }
+.tl-item.deadline .tl-item-title { color: var(--cream); }
+.tl-item-sub { font-family: 'Poppins', sans-serif; font-size: 11px; color: rgba(244,239,228,0.4); margin-top: 3px; line-height: 1.5; }
+.tl-item.deadline .tl-item-sub { color: rgba(244,239,228,0.65); }
+.tl-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(244,239,228,0.08); border-left: none; padding: 0 12px; display: flex; align-items: center; white-space: nowrap; }
+.tl-tag-text { font-family: 'Poppins', sans-serif; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(244,239,228,0.28); }
+.tl-item.deadline .tl-tag { background: rgba(158,92,30,0.25); border-color: rgba(158,92,30,0.35); }
+.tl-item.deadline .tl-tag-text { color: rgba(244,239,228,0.7); letter-spacing: 0.16em; }
+.tl-footer { margin-top: 24px; font-family: 'Poppins', sans-serif; font-size: 10px; color: rgba(244,239,228,0.25); letter-spacing: 0.08em; }
+
+/* ── TROUT COLORATION DECORATIONS ── */
+.trout-deco { position: absolute; pointer-events: none; overflow: visible; }
+
+/* Spot halos on light slides */
+.spot-cluster { position: absolute; pointer-events: none; }
+
+/* Lateral line accent on headings */
+.lateral-line {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 18px;
+}
+.lateral-line::before {
+  content: '';
+  display: block; height: 1px; width: 48px;
+  background: linear-gradient(90deg, var(--amber), transparent);
+}
+.lateral-line::after {
+  content: '';
+  display: block; height: 1px; flex: 1; max-width: 120px;
+  background: linear-gradient(90deg, rgba(158,92,30,0.3), transparent);
+}
+
+/* Parr mark stripe on dark cards */
+.parr-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--amber) 0%, rgba(196,136,60,0.4) 60%, transparent 100%);
+}
+
+/* Adipose shimmer on stat numbers */
+.stat-shimmer {
+  position: relative;
+}
+.stat-shimmer::after {
+  content: '';
+  position: absolute; bottom: -6px; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, var(--amber), rgba(158,92,30,0.15));
+}
+</style>
+</head>
+<body>
+
+<!-- DOT NAV -->
+
+<!-- Shared SVG defs for trout patterns -->
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <defs>
+    <!-- DeYoung-style spots: electric cobalt/cyan halo, deep crimson center -->
+    <radialGradient id="spotGradLg" cx="50%" cy="38%" r="50%">
+      <stop offset="0%" stop-color="#E84020" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#8A1808" stop-opacity="0.85"/>
+    </radialGradient>
+    <radialGradient id="spotGradSm" cx="50%" cy="38%" r="50%">
+      <stop offset="0%" stop-color="#E84020" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#8A1808" stop-opacity="0.8"/>
+    </radialGradient>
+    <filter id="spotGlow">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <symbol id="trout-spot-lg" viewBox="0 0 32 32">
+      <!-- Outer electric glow ring -->
+      <circle cx="16" cy="16" r="15" fill="none" stroke="#28C8E8" stroke-width="1" opacity="0.3"/>
+      <!-- Main cobalt halo -->
+      <circle cx="16" cy="16" r="13" fill="none" stroke="#3AB8D8" stroke-width="2.8" opacity="0.75"/>
+      <!-- Inner halo -->
+      <circle cx="16" cy="16" r="10" fill="none" stroke="#5ACCE8" stroke-width="1" opacity="0.45"/>
+      <!-- Spot body -->
+      <circle cx="16" cy="16" r="7" fill="url(#spotGradLg)" filter="url(#spotGlow)"/>
+      <!-- Highlight -->
+      <circle cx="13.5" cy="13" r="2" fill="rgba(255,160,120,0.5)"/>
+    </symbol>
+
+    <symbol id="trout-spot-sm" viewBox="0 0 22 22">
+      <circle cx="11" cy="11" r="10" fill="none" stroke="#3AB8D8" stroke-width="2.2" opacity="0.72"/>
+      <circle cx="11" cy="11" r="7.5" fill="none" stroke="#5ACCE8" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="11" cy="11" r="5" fill="url(#spotGradSm)" filter="url(#spotGlow)"/>
+      <circle cx="9.2" cy="9" r="1.4" fill="rgba(255,160,120,0.45)"/>
+    </symbol>
+
+    <symbol id="trout-spot-xs" viewBox="0 0 14 14">
+      <circle cx="7" cy="7" r="6.2" fill="none" stroke="#3AB8D8" stroke-width="1.8" opacity="0.68"/>
+      <circle cx="7" cy="7" r="3.5" fill="url(#spotGradSm)"/>
+      <circle cx="5.8" cy="5.5" r="0.9" fill="rgba(255,160,120,0.4)"/>
+    </symbol>
+
+    <!-- Black dorsal spot with soft edge -->
+    <symbol id="black-spot" viewBox="0 0 12 12">
+      <circle cx="6" cy="6" r="5.5" fill="#1A0E06" opacity="0.65"/>
+      <circle cx="6" cy="6" r="3" fill="#0A0604" opacity="0.5"/>
+    </symbol>
+
+    <!-- Scale pattern — tiny overlapping arcs -->
+    <symbol id="scale-row" viewBox="0 0 120 16">
+      <path d="M0 14 Q7 4 14 14 Q21 4 28 14 Q35 4 42 14 Q49 4 56 14 Q63 4 70 14 Q77 4 84 14 Q91 4 98 14 Q105 4 112 14 Q119 4 126 14"
+        stroke="#A06828" stroke-width="0.8" fill="none" opacity="0.35"/>
+      <path d="M7 14 Q14 4 21 14 Q28 4 35 14 Q42 4 49 14 Q56 4 63 14 Q70 4 77 14 Q84 4 91 14 Q98 4 105 14 Q112 4 119 14"
+        stroke="#A06828" stroke-width="0.8" fill="none" opacity="0.25"/>
+    </symbol>
+
+    <!-- Lateral line — dashed undulating path -->
+    <symbol id="lateral-line" viewBox="0 0 500 14">
+      <path d="M0 7 Q40 2 80 7 Q120 12 160 7 Q200 2 240 7 Q280 12 320 7 Q360 2 400 7 Q440 12 480 7 Q490 6 500 7"
+        stroke="#D48830" stroke-width="1.4" fill="none" opacity="0.65"
+        stroke-dasharray="5 7"/>
+    </symbol>
+
+    <!-- Parr marks — oval blobs -->
+    <symbol id="parr-mark" viewBox="0 0 20 36">
+      <ellipse cx="10" cy="18" rx="7" ry="15" fill="#3A2010" opacity="0.45" transform="rotate(-8 10 18)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav" id="dot-nav">
+  <div class="nav-label">Top</div>
+  <div class="nav-dot active" data-target="s1"></div>
+  <div class="nav-dot" data-target="s2"></div>
+  <div class="nav-label">Phases</div>
+  <div class="nav-dot" data-target="s3"></div>
+  <div class="nav-dot" data-target="s4"></div>
+  <div class="nav-dot" data-target="s5"></div>
+  <div class="nav-dot" data-target="s6"></div>
+  <div class="nav-label">More</div>
+  <div class="nav-dot" data-target="s7"></div>
+</nav>
+
+<!-- ═══════════════════════════ SLIDE 1 · HERO ═══════════════════════════ -->
+<section class="slide" id="s1">
+
+
+    <div class="s1-inner">
+    <div class="s1-club reveal rd1">Toe River Club</div>
+    <h1 class="s1-h reveal rd2">Stream<br><em>Committee</em><br>Priority Guide</h1>
+    <p class="s1-sub reveal rd3">River work window: through the end of September. All major seeding, bank stabilization, and live staking must be staged to respect both seasonal planting windows and the heat cutoff for seed germination.</p>
+
+  </div>
+  <div class="slide-num">01</div>
+</section>
+
+<!-- ═══════════════════════════ SLIDE 2 · OVERVIEW ═══════════════════════════ -->
+<section class="slide" id="s2">
+  <svg class="trout-deco" style="position:absolute;top:40px;right:8vw;;opacity:0.2;" aria-hidden="true" width="500" height="400">
+    <use href="#trout-spot-lg" x="0" y="0" width="28" height="28"/>
+      <use href="#trout-spot-sm" x="70" y="30" width="25" height="25"/>
+      <use href="#trout-spot-xs" x="130" y="5" width="28" height="28"/>
+      <use href="#trout-spot-xs" x="40" y="80" width="23" height="23"/>
+      <use href="#black-spot" x="110" y="65" width="28" height="28"/>
+      <use href="#trout-spot-sm" x="180" y="40" width="22" height="22"/>
+      <use href="#trout-spot-xs" x="160" y="100" width="21" height="21"/>
+      <use href="#black-spot" x="220" y="15" width="25" height="25"/>
+      
+  </svg>
+  <div class="eyebrow reveal rd1">Overview &amp; Context</div>
+  <h2 class="big-h reveal rd2">The club has invested approximately<br><em>$600,000</em> in stream restoration to date.</h2>
+
+  <div class="s2-grid reveal rd3">
+    <div class="s2-stat hero">
+      <div class="s2-num">$600k</div>
+      <div class="s2-lbl">Invested in stream restoration to date, with ongoing costs of roughly $50,000 per year</div>
+    </div>
+    <div class="s2-stat">
+      <div class="s2-num">4,000</div>
+      <div class="s2-lbl">Total tree target — 1,200 in the ground, 300 to plant April 7, 1,700 live stakes in fall</div>
+    </div>
+    <div class="s2-stat accent">
+      <div class="s2-num">Sept 30</div>
+      <div class="s2-lbl">Hard deadline for all in-river and bank modifications — plan every phase around this date</div>
+    </div>
+  </div>
+
+  <div class="s2-committee reveal rd4">
+    <div class="s2-committee-label">Stream Committee — 2026</div>
+    <div class="s2-members">
+      <div class="s2-member">Michael Mills</div>
+      <div class="s2-member">Bob Gfeller</div>
+      <div class="s2-member">Rich West</div>
+      <div class="s2-member">David Spitz</div>
+      <div class="s2-member">Rob Crowe</div>
+    </div>
+  </div>
+
+  <div class="body-text reveal rd5" style="margin-top:24px;">
+    Key partners: Nathan Buchanan / Wildbud Natives (Asheville), Daniel (on-site coordinator), EcoForester (fire management &amp; timber), Jim Jim (heavy equipment), Shea Tuberty PhD / Appalachian State (scientific advisor), Earl Al Bergeman (stream committee).
+  </div>
+  <div class="slide-num">02</div>
+</section>
+
+<!-- ═══════════════════════════ SLIDE 3 · PHASE 1 ═══════════════════════════ -->
+<section class="slide" id="s3">
+  <svg class="trout-deco" style="position:absolute;bottom:60px;left:6vw;;opacity:0.2;" aria-hidden="true" width="500" height="400">
+    <use href="#trout-spot-lg" x="0" y="60" width="30" height="30"/>
+      <use href="#trout-spot-sm" x="80" y="20" width="28" height="28"/>
+      <use href="#trout-spot-xs" x="150" y="55" width="28" height="28"/>
+      <use href="#black-spot" x="50" y="110" width="33" height="33"/>
+      <use href="#trout-spot-sm" x="120" y="95" width="23" height="23"/>
+      <use href="#black-spot" x="200" y="30" width="28" height="28"/>
+      <use href="#trout-spot-xs" x="230" y="80" width="25" height="25"/>
+      
+  </svg>
+  <div class="eyebrow reveal rd1">Phase 1 — Immediate Priority</div>
+  <h2 class="big-h reveal rd2">Seeding, Stabilization <em>&amp; Riprap</em><br style="line-height:0.5"> <span style="font-size:0.55em;font-weight:400;letter-spacing:0;color:var(--mid);font-family:'Poppins',sans-serif;">April – May 2026</span></h2>
+
+  <div class="p-note reveal rd2" style="margin-bottom:20px;">
+    <p>These items must move first because <em>seed viability drops sharply once temperatures rise.</em> Coordinate with Nathan on the 3/30 call to confirm scope, mix composition, and contractor scheduling.</p>
+  </div>
+
+  <div class="phase-grid reveal rd3">
+    <div class="p-card">
+      <div class="p-card-eye">1A — Seeding</div>
+      <div class="p-card-title">Shot Rock &amp; Disturbed Areas</div>
+      <div class="p-card-body">Complete top-to-bottom seeding of all club areas not yet seeded. Confirm with Nathan whether this figure covers the full disturbed corridor from the road cut on Old Toe River Road back down river.<br><br>Conduct a hydroseeding experiment on the shot rock embankments — two test plots in different lower river areas. Nathan to prepare the mix; Daniel to coordinate with the sprayer. Hydroseeded mix includes binding filler material that may adhere better to shot rock faces.<br><br>Note from Dr. Tuberty: rock dust from the Vulcan Quarry source is not toxic to macroinvertebrates or fish — the fine sediment load is an inconvenience but will subside as vegetative cover establishes.</div>
+      <div class="p-card-cost">$3,500</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div class="p-card dark">
+        <div class="p-card-eye">1B — Bank Stabilization</div>
+        <div class="p-card-title">Fire Pit Lawn Area</div>
+        <div class="p-card-body">Proceed with Nathan's recommended bank stabilization on the outside bend of the lawn area (fire pit side). Do the inside run first as a pilot to evaluate results before committing to the full scope.</div>
+        <div class="p-card-cost">~$8,000</div>
+      </div>
+      <div class="p-card amber-card">
+        <div class="p-card-eye">1C — Hairpin Turn</div>
+        <div class="p-card-title">Shot Rock Embankment</div>
+        <div class="p-card-body">Address the top-of-property hairpin turn, now 100% shot rock embanked to the river. Nathan to recommend treatment. Riprap trial: test seed mix at 15% coverage along riprap sections. Evaluate jute matting around bank edges to stabilize soil for germination.</div>
+        <div class="p-card-cost">~$2,200</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">03</div>
+</section>
+
+<!-- ═══════════════════════════ SLIDE 4 · PHASE 2 ═══════════════════════════ -->
+<section class="slide" id="s4">
+  <svg class="trout-deco" style="position:absolute;top:50px;right:5vw;;opacity:0.2;" aria-hidden="true" width="500" height="400">
+    <use href="#trout-spot-lg" x="0" y="0" width="33" height="33"/>
+      <use href="#trout-spot-sm" x="90" y="40" width="28" height="28"/>
+      <use href="#trout-spot-xs" x="170" y="10" width="30" height="30"/>
+      <use href="#trout-spot-sm" x="55" y="90" width="25" height="25"/>
+      <use href="#black-spot" x="140" y="75" width="36" height="36"/>
+      <use href="#trout-spot-xs" x="210" y="45" width="28" height="28"/>
+      <use href="#black-spot" x="250" y="90" width="28" height="28"/>
+      <use href="#trout-spot-sm" x="290" y="20" width="22" height="22"/>
+      
+  </svg>
+  <div class="eyebrow reveal rd1">Phase 2 — Spring &amp; Summer</div>
+  <h2 class="big-h reveal rd2">Trees, Timber<br><em>&amp; Fire Management</em><br><span style="font-size:0.55em;font-weight:400;letter-spacing:0;color:var(--mid);font-family:'Poppins',sans-serif;">April – August 2026</span></h2>
+
+  <div class="s4-rows reveal rd3">
+    <div class="s4-row">
+      <div class="s4-num"><span>2A</span></div>
+      <div class="s4-task">
+        <div class="s4-task-title">Tree Planting — Remaining 300 Trees</div>
+        <div class="s4-task-body">Planting trip targeted for Monday, April 7 — Bob to bring volunteers; Daniel to assist completing the remaining trees from the current batch. 1,200 trees already in the ground. A further 1,700 remain for fall 2026 installation (live stakes). Total target: 4,000 trees.</div>
+      </div>
+      <div class="s4-meta">
+        <div class="s4-meta-cost">Volunteer labor</div>
+        <div class="s4-meta-lead">Bob / Daniel · Apr 7</div>
+      </div>
+    </div>
+    <div class="s4-row">
+      <div class="s4-num"><span>2B</span></div>
+      <div class="s4-task">
+        <div class="s4-task-title">New Tree Protection — All 300 New Trees</div>
+        <div class="s4-task-body">Purchase and install commercial tree shelters from TreePro or equivalent (see links forwarded by Dr. Tuberty). Options include grow tubes (36") and self-starter protectors. Get these to Daniel for installation — reducing his fabrication burden is a priority given his full schedule. Recommended vendors: TreePro (treepro.com) and Amleo (amleo.com) — bales of 50 available.</div>
+      </div>
+      <div class="s4-meta">
+        <div class="s4-meta-cost">TBD</div>
+        <div class="s4-meta-lead">Bob (procure) / Daniel (install)</div>
+      </div>
+    </div>
+    <div class="s4-row featured">
+      <div class="s4-num"><span>2C</span></div>
+      <div class="s4-task">
+        <div class="s4-task-title">Timber &amp; Dead Wood Inventory</div>
+        <div class="s4-task-body">Nathan to walk the railroad bed with Daniel to identify stout trees in the pull-down zone along Jim Jim's corridor. Determine what timber along the RR bed is of sufficient size and rot resistance to be useful. Daniel and Earl note that much of the accessible material may be "trash wood" that would decompose too quickly for structural use. EcoForester (and a second bidder) to assess: (a) what can be cleared as part of the fire break in Area 2, and (b) whether any thinning of dead wood above the club is feasible without creating a logging-site appearance.</div>
+      </div>
+      <div class="s4-meta">
+        <div class="s4-meta-cost">No cost / TBD</div>
+        <div class="s4-meta-lead">Nathan / Daniel / EcoForester</div>
+      </div>
+    </div>
+    <div class="s4-row">
+      <div class="s4-num"><span>2D</span></div>
+      <div class="s4-task">
+        <div class="s4-task-title">Fire Management — Area 2 Clear</div>
+        <div class="s4-task-body">Issue RFP to EcoForester for full fire break completion in Area 2 (the large slide identified in the fire management report). Seek at least one additional competing bid.</div>
+      </div>
+      <div class="s4-meta">
+        <div class="s4-meta-cost">TBD — bid</div>
+        <div class="s4-meta-lead">Bob / EcoForester + 2nd</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">04</div>
+</section>
+
+<!-- ═══════════════════════════ SLIDE 5 · IN-RIVER HABITAT ═══════════════════════════ -->
+<section class="slide" id="s5">
+  <svg class="trout-deco" style="position:absolute;top:0;right:0;;opacity:0.38;" aria-hidden="true" width="500" height="400">
+    <use href="#trout-spot-lg" x="0" y="0" width="39" height="39"/>
+      <use href="#trout-spot-sm" x="110" y="50" width="33" height="33"/>
+      <use href="#trout-spot-lg" x="210" y="10" width="28" height="28"/>
+      <use href="#trout-spot-sm" x="70" y="120" width="30" height="30"/>
+      <use href="#trout-spot-xs" x="180" y="105" width="36" height="36"/>
+      <use href="#trout-spot-sm" x="300" y="60" width="28" height="28"/>
+      <use href="#black-spot" x="260" y="130" width="42" height="42"/>
+      <use href="#trout-spot-xs" x="340" y="20" width="30" height="30"/>
+      
+  </svg>
+  <svg class="trout-deco" style="position:absolute;bottom:90px;left:10vw;width:60vw;;opacity:0.12;" aria-hidden="true" width="400" height="12">
+    <use href="#lateral-line" x="0" y="0" width="400" height="12"/>
+  </svg>
+  <div class="eyebrow reveal rd1" style="color:rgba(244,239,228,0.5);">In-River Modifications — June – September 2026</div>
+  <h2 class="s5-h reveal rd2">Trout Habitat &amp; <em>In-River Work</em></h2>
+
+  <div class="s5-grid reveal rd3">
+    <div class="s5-card">
+      <div class="s5-icon">🗺</div>
+      <div class="s5-card-title">Assessment Walk First</div>
+      <div class="s5-card-body">Before any in-river work begins, the stream committee should conduct a full assessment walk of the club's stretch with Nathan, Daniel, and ideally Shea Tuberty or a qualified fisheries biologist. Document existing habitat features, problem areas, and priority zones. Identify 3–5 priority habitat improvement zones ranked by fish-holding potential and feasibility of modification.<br><br>Map pool locations, riffle and run sections, eroding banks, areas where fine sediment muck is accumulating (noted below one of the shot rock walls), and existing wood jams and natural cover.</div>
+    </div>
+    <div class="s5-card lit">
+      <div class="s5-icon">🪨</div>
+      <div class="s5-card-title">Rock Work — Pool &amp; Habitat Creation</div>
+      <div class="s5-card-body">Identify boulders and large substrate that can be repositioned to create or deepen holding pools, deflect current into cut banks, or establish mid-channel structure for trout cover. Focus on outside bends and areas immediately downstream of riffles — naturally high-value trout lies. Deflector rocks placed at an angle to current can scour new pools without heavy equipment in many cases.<br><br>Jim Jim's equipment (or rental) will likely be required for any meaningful boulder movement — confirm his availability and access points from the RR bed. Do not disturb fine gravel beds that may serve as spawning substrate.</div>
+    </div>
+    <div class="s5-card">
+      <div class="s5-icon">🪵</div>
+      <div class="s5-card-title">Large Wood — Felled Trees &amp; Root Balls</div>
+      <div class="s5-card-body">Large wood is one of the most effective and low-cost trout habitat tools available. It creates hydraulic complexity, forms scour pools, provides overhead cover, and builds organic matter in the substrate over time.<br><br>Prioritize hardwoods (oak, sycamore, black locust) over softwoods or early-successional species that rot quickly. Root balls from felled streamside trees are particularly valuable — complex three-dimensional fish refuge, substrate anchor, and habitat for benthic invertebrates.<br><br>Secure large wood to the bank using cable or rebar stakes. Aim for partial submergence. Cluster multiple pieces — a single log is far less effective than a small jam with several interacting pieces.</div>
+    </div>
+    <div class="s5-card">
+      <div class="s5-icon">💧</div>
+      <div class="s5-card-title">Sediment &amp; Muck Remediation</div>
+      <div class="s5-card-body">The fine sediment muck accumulating below the shot rock walls is a priority concern for invertebrate and spawning habitat. Identify the worst-affected pools and riffles and document current depth of fine sediment accumulation.<br><br>Options: current deflectors upstream of muck zones to increase velocity and flush fines during moderate flows; riffle enhancement — adding coarse cobble or gravel to affected sections to bury fine sediment and restore spawning substrate texture.<br><br>Long-term: the most effective treatment is preventing sediment at the source by establishing vegetative cover on the shot rock faces as quickly as possible.</div>
+    </div>
+  </div>
+
+
+  <div class="slide-num" style="color:rgba(244,239,228,0.2);">05</div>
+</section>
+
+<!-- ═══════════════════════════ SLIDE 6 · PHASE 3 / GRANTS ═══════════════════════════ -->
+<section class="slide" id="s6">
+  <svg class="trout-deco" style="position:absolute;bottom:80px;right:7vw;;opacity:0.2;" aria-hidden="true" width="500" height="400">
+    <use href="#trout-spot-lg" x="0" y="50" width="28" height="28"/>
+      <use href="#black-spot" x="80" y="0" width="33" height="33"/>
+      <use href="#trout-spot-sm" x="130" y="60" width="28" height="28"/>
+      <use href="#trout-spot-xs" x="200" y="20" width="30" height="30"/>
+      <use href="#trout-spot-xs" x="50" y="110" width="25" height="25"/>
+      <use href="#black-spot" x="160" y="100" width="28" height="28"/>
+      <use href="#trout-spot-sm" x="240" y="75" width="23" height="23"/>
+      
+  </svg>
+  <div class="eyebrow reveal rd1">Phase 3 — Fall 2026</div>
+  <h2 class="big-h reveal rd2">Live Stakes, Access<br><em>&amp; Review</em><br><span style="font-size:0.55em;font-weight:400;letter-spacing:0;color:var(--mid);font-family:'Poppins',sans-serif;">September – November 2026</span></h2>
+
+  <div class="s6-layout reveal rd3">
+    <div class="s6-block river-top">
+      <div class="s6-block-num">3A</div>
+      <div class="s6-block-title">Live Stakes — Next Batch of 1,700</div>
+      <div class="s6-block-body">Install next batch of live stakes in fall 2026 as conditions cool. Wildbud Natives / Nathan to coordinate timing and species mix to complement the spring seeding results.<br><br>Riparian seed mix to be broadcast ahead of dormant live stake installation. Include native wildflowers and native grasses per the annual meeting plan.</div>
+    </div>
+    <div class="s6-block river-top">
+      <div class="s6-block-num">3B</div>
+      <div class="s6-block-title">Safe River Access Plan</div>
+      <div class="s6-block-body">Stream committee members to develop a formal safe river access plan for Daniel to construct. Document access points, bank conditions, and hazard zones.</div>
+    </div>
+    <div class="s6-block river-top">
+      <div class="s6-block-num">3C</div>
+      <div class="s6-block-title">Seed Mix Status Check</div>
+      <div class="s6-block-body">Evaluate germination success of all spring seeding before the fall planting window. Document which methods (hand seed vs. hydroseeding) performed better on the shot rock faces.</div>
+    </div>
+  </div>
+
+  <div class="eyebrow reveal rd4" style="margin-top:8px;">Grants</div>
+  <div class="s6-grants reveal rd4">
+    <div class="s6-grant">
+      <div class="s6-grant-amount">~$45k</div>
+      <div class="s6-grant-label">Bridge reimbursement grant (50% coverage) — follow up on approval status</div>
+      <div class="s6-grant-status pending">Pending Approval</div>
+    </div>
+    <div class="s6-grant approved">
+      <div class="s6-grant-amount">75%</div>
+      <div class="s6-grant-label">Timber coverage grant — approved for trees on the hill. Coordinate implementation plan with Nathan and the grant requirements.</div>
+      <div class="s6-grant-status ok">Approved ✓</div>
+    </div>
+  </div>
+  <div class="slide-num">06</div>
+</section>
+
+<!-- ═══════════════════════════ SLIDE 7 · TIMELINE ═══════════════════════════ -->
+<section class="slide" id="s7">
+  <svg class="trout-deco" style="position:absolute;top:20px;right:4vw;;opacity:0.38;" aria-hidden="true" width="500" height="400">
+    <use href="#trout-spot-lg" x="0" y="0" width="36" height="36"/>
+      <use href="#trout-spot-sm" x="100" y="40" width="30" height="30"/>
+      <use href="#trout-spot-xs" x="190" y="5" width="33" height="33"/>
+      <use href="#black-spot" x="60" y="100" width="39" height="39"/>
+      <use href="#trout-spot-sm" x="155" y="85" width="28" height="28"/>
+      <use href="#trout-spot-xs" x="270" y="50" width="28" height="28"/>
+      <use href="#black-spot" x="310" y="10" width="33" height="33"/>
+      
+  </svg>
+  <div class="tl-wrap reveal rd1">
+    <div class="eyebrow" style="color:rgba(244,239,228,0.45);">2026 Action Timeline</div>
+    <h2 class="tl-h">Every action.<br><em>Every deadline.</em></h2>
+
+    <!-- MARCH -->
+    <div class="tl-month">
+      <div class="tl-month-label"><div class="tl-month-name">Mar<span>2026</span></div></div>
+      <div class="tl-items">
+        
+        <div class="tl-item done">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Call with Nathan Buchanan / Wildbud Natives</div>
+            <div class="tl-item-sub">Confirm scope, seeding mix, and Phase 2 action plan</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Mar 30</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Purchase tree shelters — 300 units</div>
+            <div class="tl-item-sub">TreePro or Amleo grow tubes (36"); order bales of 50 for Daniel to install</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Late Mar</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APRIL -->
+    <div class="tl-month">
+      <div class="tl-month-label"><div class="tl-month-name">Apr<span>2026</span></div></div>
+      <div class="tl-items">
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Tree planting trip — remaining 300 trees</div>
+            <div class="tl-item-sub">Bob to bring volunteers; Daniel to coordinate. 1,200 already in; 300 completes this batch</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Apr 7</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Issue RFP to EcoForester — Area 2 fire break</div>
+            <div class="tl-item-sub">Seek at least one additional competing bid alongside EcoForester</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Early Apr</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Begin top-to-bottom seeding — all club areas</div>
+            <div class="tl-item-sub">Confirm $3,500 scope covers Old Toe River Road corridor. Nathan to lead</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Apr–May</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Hydroseeding experiment — 2 shot rock test plots</div>
+            <div class="tl-item-sub">Nathan prepares mix; Daniel coordinates sprayer. Compare vs. hand seeding</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Apr–May</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Bank stabilization — fire pit lawn area (inside run pilot)</div>
+            <div class="tl-item-sub">Do inside run first to evaluate before committing to full scope. Est. ~$8,000</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Apr–May</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Hairpin turn — shot rock embankment treatment</div>
+            <div class="tl-item-sub">Nathan to recommend treatment. Riprap seed mix trial at 15% + jute matting. Est. ~$2,200</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Apr–May</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Install tree protection on all 300 new trees</div>
+            <div class="tl-item-sub">Get shelters to Daniel for installation once delivered</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Apr</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAY–JUNE -->
+    <div class="tl-month">
+      <div class="tl-month-label"><div class="tl-month-name">May–Jun<span>2026</span></div></div>
+      <div class="tl-items">
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Timber &amp; dead wood inventory walk — RR bed</div>
+            <div class="tl-item-sub">Nathan + Daniel walk the railroad bed; identify stout trees in the pull-down zone for Jim Jim</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">May</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Full habitat assessment walk — map river reach</div>
+            <div class="tl-item-sub">Nathan, Daniel, Shea Tuberty. Map pools, riffles, muck zones, existing wood. Rank 3–5 priority zones</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">May–Jun</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Confirm Jim Jim availability + equipment access</div>
+            <div class="tl-item-sub">Which bank sections can he reach from the RR bed vs. hand work? Needed for rock and wood placement</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">May–Jun</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Sediment muck assessment — document worst-affected pools</div>
+            <div class="tl-item-sub">Depth of accumulation below shot rock walls; discuss deflector and riffle enhancement options with Shea</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Jun</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUNE–SEPTEMBER -->
+    <div class="tl-month">
+      <div class="tl-month-label"><div class="tl-month-name">Jun–Sep<span>2026</span></div></div>
+      <div class="tl-items">
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Rock work — deflectors &amp; pool creation</div>
+            <div class="tl-item-sub">Reposition boulders at outside bends and below riffles to scour new holding pools. Jim Jim equipment required</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Jun–Sep</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Large wood &amp; root ball placement</div>
+            <div class="tl-item-sub">Hardwoods only (oak, sycamore, black locust). Cable/rebar anchor to bank. Partial submergence. Cluster pieces</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Jun–Sep</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Sediment remediation — deflectors or riffle enhancement</div>
+            <div class="tl-item-sub">Based on June assessment; implement most viable option with Nathan and Shea Tuberty</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Jul–Sep</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">NC DWR permit check — confirm no triggers</div>
+            <div class="tl-item-sub">All in-river structure placement reviewed by qualified professional before installation</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Before work</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Evaluate bids — fire break Area 2</div>
+            <div class="tl-item-sub">Review EcoForester bid + second bidder; award contract</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Jun–Jul</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEPTEMBER 30 — HARD DEADLINE -->
+    <div class="tl-month">
+      <div class="tl-month-label"><div class="tl-month-name">Sep 30<span>DEADLINE</span></div></div>
+      <div class="tl-items">
+        
+        <div class="tl-item deadline">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#F4EFE4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">⚑ ALL in-river and bank modifications complete</div>
+            <div class="tl-item-sub">Hard cutoff — brown trout spawn Oct–Dec, brook trout Sep–Nov. No rock or wood work after this date</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Sept 30</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Seed mix germination check — document results</div>
+            <div class="tl-item-sub">Compare hand seeding vs. hydroseeding performance on shot rock before fall planting window</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Late Sep</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Safe river access plan — finalize for Daniel</div>
+            <div class="tl-item-sub">Stream committee to document all access points, bank conditions, and hazard zones</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Sep</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FALL -->
+    <div class="tl-month">
+      <div class="tl-month-label"><div class="tl-month-name">Fall<span>Oct–Nov</span></div></div>
+      <div class="tl-items">
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Live stakes — install next batch of 1,700</div>
+            <div class="tl-item-sub">Wildbud Natives / Nathan to coordinate timing and species mix. Broadcast riparian seed mix ahead of installation</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Oct–Nov</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Bridge reimbursement grant — follow up on approval</div>
+            <div class="tl-item-sub">~$45,000 pending (50% coverage). Confirm status and next steps</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Ongoing</div></div>
+        </div>
+        
+        <div class="tl-item">
+          <div class="tl-check"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="#9E5C1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tl-body">
+            <div class="tl-item-title">Timber grant — coordinate implementation with Nathan</div>
+            <div class="tl-item-sub">75% coverage approved for trees on the hill. Align plan with grant requirements</div>
+          </div>
+          <div class="tl-tag"><div class="tl-tag-text">Ongoing</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-footer">Toe River Club — Stream Committee &nbsp;·&nbsp; Prepared March 2026 &nbsp;·&nbsp; Click any item to mark complete</div>
+  </div>
+  <div class="slide-num" style="color:rgba(244,239,228,0.2);">07</div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  document.documentElement.classList.add('js-loaded');
+
+  // Dot nav
+  const dots = document.querySelectorAll('.nav-dot');
+  const slides = ['s1','s2','s3','s4','s5','s6','s7'].map(id => document.getElementById(id));
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Active dot on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = slides.indexOf(entry.target);
+        dots.forEach((d,i) => d.classList.toggle('active', i === idx));
+        // Reveal elements in this slide
+        entry.target.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      }
+    });
+  }, { threshold
